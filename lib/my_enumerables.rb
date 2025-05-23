@@ -22,9 +22,10 @@ module Enumerable
         result = yield elem
         arr << elem if result
       end
-      return arr
+      arr
+    else
+      self
     end
-    self
   end
 
   # my_all?
@@ -55,6 +56,18 @@ module Enumerable
   end
 
   # my_count
+  def my_count
+    if block_given?
+      count = 0
+      my_each do |elem|
+        result = yield elem
+        count += 1 if result
+      end
+      count
+    else
+      size
+    end
+  end
 
   # my_map
 
@@ -89,7 +102,7 @@ arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # puts original.class
 # puts original.inspect
 
-result = arr.my_none? { |value| value == 0 }
+result = arr.my_count { |value| value > 5 }
 
 # # result = arr.my_select { |num| num > 10 }
 puts result.inspect
