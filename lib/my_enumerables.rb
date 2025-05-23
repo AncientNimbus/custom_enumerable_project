@@ -39,6 +39,15 @@ module Enumerable
   end
 
   # my_any?
+  def my_any?
+    if block_given?
+      my_each do |elem|
+        result = yield elem
+        return true if result
+      end
+    end
+    false
+  end
 
   # my_none?
 
@@ -77,7 +86,7 @@ arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # puts original.class
 # puts original.inspect
 
-result = arr.my_all? { |value| value > 0 }
+result = arr.my_any?(&:negative?)
 
 # result = [1, 2, 3, 4, 5].my_select { |num| num.even? }
 puts result.inspect
