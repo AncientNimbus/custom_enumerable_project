@@ -2,7 +2,31 @@
 
 # Custom Enumerable Project
 module Enumerable
-  # Your code goes here
+  # my_each_with_index
+  def my_each_with_index
+    if block_given?
+      idx = 0
+      my_each do |elem|
+        yield [elem, idx]
+        idx += 1
+      end
+    end
+    self
+  end
+
+  # my_select
+
+  # my_all?
+
+  # my_any?
+
+  # my_none?
+
+  # my_count
+
+  # my_map
+
+  # my_inject
 end
 
 # You will first have to define my_each
@@ -36,3 +60,10 @@ arr2 = %w[apple banana cherry]
 # original = [1, 2, 3].each { |num| puts num }
 # puts original.class
 # puts original.inspect
+each_with_index_results = []
+arr.my_each_with_index do |element, index|
+  each_with_index_results << [element * 2, index * 2]
+end
+
+puts each_with_index_results.class
+puts each_with_index_results.inspect
