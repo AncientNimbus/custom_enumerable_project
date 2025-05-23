@@ -70,6 +70,16 @@ module Enumerable
   end
 
   # my_map
+  def my_map
+    return to_enum(:my_map) unless block_given?
+
+    arr = []
+    my_each do |elem|
+      result = yield elem
+      arr << result
+    end
+    arr
+  end
 
   # my_inject
 end
@@ -102,7 +112,8 @@ arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # puts original.class
 # puts original.inspect
 
-result = arr.my_count { |value| value > 5 }
+# result = arr.my_count { |value| value > 5 }
+result = arr.my_map
 
 # # result = arr.my_select { |num| num > 10 }
-puts result.inspect
+p result
