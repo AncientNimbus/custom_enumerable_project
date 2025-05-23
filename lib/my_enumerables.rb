@@ -22,12 +22,21 @@ module Enumerable
         result = yield elem
         arr << elem if result
       end
-      return arr
+      arr
     end
     self
   end
 
   # my_all?
+  def my_all?
+    if block_given?
+      my_each do |elem|
+        result = yield elem
+        return false unless result
+      end
+    end
+    true
+  end
 
   # my_any?
 
@@ -59,10 +68,6 @@ end
 # Test array
 arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # arr2 = %w[apple banana cherry]
-# arr.each { |elem| p elem }
-# arr.my_each { |elem| p elem }
-# result = arr2.my_each { |fruit| puts "I like #{fruit}." }
-# puts result.inspect
 
 # result = 3.times.with_index { |i| puts i }
 # puts result.class
@@ -71,11 +76,8 @@ arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # original = [1, 2, 3].each { |num| puts num }
 # puts original.class
 # puts original.inspect
-each_with_index_results = []
-arr.my_select { |value| value > 10 }
 
-# puts each_with_index_results.class
-# puts each_with_index_results.inspect
+result = arr.my_all? { |value| value > 0 }
 
-result = [1, 2, 3, 4, 5].my_select { |num| num.even? }
+# result = [1, 2, 3, 4, 5].my_select { |num| num.even? }
 puts result.inspect
