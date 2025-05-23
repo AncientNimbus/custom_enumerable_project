@@ -22,7 +22,7 @@ module Enumerable
         result = yield elem
         arr << elem if result
       end
-      arr
+      return arr
     end
     self
   end
@@ -50,6 +50,9 @@ module Enumerable
   end
 
   # my_none?
+  def my_none?(&block)
+    !my_any?(&block)
+  end
 
   # my_count
 
@@ -86,7 +89,7 @@ arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # puts original.class
 # puts original.inspect
 
-result = arr.my_any?(&:negative?)
+result = arr.my_none? { |value| value == 0 }
 
-# result = [1, 2, 3, 4, 5].my_select { |num| num.even? }
+# # result = arr.my_select { |num| num > 10 }
 puts result.inspect
