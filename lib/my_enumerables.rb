@@ -82,6 +82,16 @@ module Enumerable
   end
 
   # my_inject
+  def my_inject(init_value = 0)
+    return ArgumentError unless block_given?
+
+    accumulator = init_value
+    my_each do |value|
+      result = yield(accumulator, value)
+      accumulator = result
+    end
+    accumulator
+  end
 end
 
 # You will first have to define my_each
@@ -99,21 +109,3 @@ class Array
     self
   end
 end
-
-# Test array
-arr = [1, 1, 2, 3, 5, 8, 13, 21, 34]
-# arr2 = %w[apple banana cherry]
-
-# result = 3.times.with_index { |i| puts i }
-# puts result.class
-# puts result.inspect
-
-# original = [1, 2, 3].each { |num| puts num }
-# puts original.class
-# puts original.inspect
-
-# result = arr.my_count { |value| value > 5 }
-result = arr.my_map
-
-# # result = arr.my_select { |num| num > 10 }
-p result
